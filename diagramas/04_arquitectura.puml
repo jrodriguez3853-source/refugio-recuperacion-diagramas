@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+component "Panel de ingreso / panel clínico" as C0
+component "Servicios de atención y adopción" as C1
+component "Dominio: Expediente, familias, estados y eventos" as C2
+component "Puertos: almacenamiento / entrega de avisos" as C3
+C0 --> C1
+C1 --> C2
+C3 ..> C2 : implementa puertos
+package "Gitflow de diagramas" {
+artifact "feature/*" as F
+artifact "develop" as D
+artifact "master" as M
+F --> D : integrar avance
+D --> M : publicar entrega
+}
+note bottom of C2: Las reglas no dependen del almacenamiento.
+note bottom of M: Versionado del diseño; no despliegue automático.
+@enduml
