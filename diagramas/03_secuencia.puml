@@ -1,0 +1,18 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+participant "Veterinario" as P0
+participant "Expediente" as P1
+participant "EstadoTratamiento" as P2
+participant "Plan" as P3
+participant "Emisor / receptor" as P4
+P0 -> P1: avanzar(altaClinica)
+P1 -> P2: avanzar(exp, evento)
+P2 -> P3: validarDestino()
+P3 --> P2: doméstico y apto
+P2 --> P1: estado Disponible
+P1 -> P4: emitir(cambio)
+P4 --> P0: notificación
+note over P1,P4: Si no es apto, conservar Tratamiento.
+Fauna silvestre: cerrar por derivación, sin estado Disponible.
+@enduml
