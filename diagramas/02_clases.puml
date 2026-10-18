@@ -1,0 +1,65 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+interface FabricaAtencion {
++crearFicha(): Ficha
++crearPlan(): Plan
+}
+class FabricaPerro
+class FabricaGato
+class FabricaSilvestre
+FabricaAtencion <|.. FabricaPerro
+FabricaAtencion <|.. FabricaGato
+FabricaAtencion <|.. FabricaSilvestre
+interface Ficha
+interface Plan
+class FichaCanina
+class FichaFelina
+class FichaSilvestre
+class PlanCanino
+class PlanFelino
+class PlanDerivacion
+Ficha <|.. FichaCanina
+Ficha <|.. FichaFelina
+Ficha <|.. FichaSilvestre
+Plan <|.. PlanCanino
+Plan <|.. PlanFelino
+Plan <|.. PlanDerivacion
+FabricaPerro ..> FichaCanina
+FabricaPerro ..> PlanCanino
+FabricaGato ..> FichaFelina
+FabricaGato ..> PlanFelino
+FabricaSilvestre ..> FichaSilvestre
+FabricaSilvestre ..> PlanDerivacion
+class Expediente {
++avanzar(evento)
++asignar(responsable)
+}
+Expediente *-- Ficha
+Expediente *-- Plan
+interface EstadoCaso {
++avanzar(exp, evento)
+}
+class Ingreso
+class Tratamiento
+class Disponible
+class Cerrado
+EstadoCaso <|.. Ingreso
+EstadoCaso <|.. Tratamiento
+EstadoCaso <|.. Disponible
+EstadoCaso <|.. Cerrado
+Expediente --> EstadoCaso
+class EmisorEventos {
++suscribir(receptor)
++emitir(evento)
+}
+interface Receptor {
++recibir(evento)
+}
+class AvisoVeterinario
+Receptor <|.. AvisoVeterinario
+EmisorEventos o-- "0..*" Receptor
+Expediente --> EmisorEventos
+class Responsable
+Expediente "0..*" --> "0..*" Responsable
+@enduml
